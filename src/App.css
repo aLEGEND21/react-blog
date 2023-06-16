@@ -1,38 +1,18 @@
-.App {
-  text-align: center;
+:root {
+    --theme-grey: rgb(93, 115, 126);
+    --theme-blue-green: #64b6ac;
+    --theme-green: rgb(218, 255, 239);
+    --theme-light: rgb(252, 255, 253);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+    background-color: var(--theme-blue-green) !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Remove outline from navbar toggle button */
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none !important;
+    box-shadow: none !important;
 }
