@@ -1,30 +1,30 @@
-import UserProfile from "./Profile";
+import SessionStore from "./store";
 
 // Create a reducer that handles the user session
 let sessionReducer = (state, action) => {
     switch (action.type) {
         case 'login':
-            UserProfile.username = action.payload.username;
-            UserProfile.id = action.payload.id;
+            SessionStore.username = action.payload.username;
+            SessionStore.id = action.payload.id;
             return {
                 ...state,
                 loggedIn: true,
-                username: UserProfile.username,
-                id: UserProfile.id,
+                username: SessionStore.username,
+                id: SessionStore.id,
             };
         case 'logout':
-            UserProfile.clear();
+            SessionStore.clear();
             return {
                 ...state,
                 loggedIn: false,
-                username: UserProfile.username,
-                id: UserProfile.id,
+                username: SessionStore.username,
+                id: SessionStore.id,
             };
         default:
             return {
                 ...state,
-                username: UserProfile.username,
-                id: UserProfile.id,
+                username: SessionStore.username,
+                id: SessionStore.id,
             };
     }
 }

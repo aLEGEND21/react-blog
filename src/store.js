@@ -1,7 +1,7 @@
 const localStorageName = 'username';
 const localStorageID = 'userID';
 
-const UserProfile = {
+const SessionStore = {
     get username() {
         return localStorage.getItem(localStorageName);
     },
@@ -20,4 +20,4 @@ const UserProfile = {
     }
 }
 
-export default UserProfile;
+export default SessionStore;

@@ -1,6 +1,5 @@
 import React, { useEffect, useState} from 'react';
 import Container from 'react-bootstrap/Container';
-import UserProfile from '../Profile';
 
 function Home() {
 	let [posts, setPosts] = useState([]);
@@ -15,8 +14,6 @@ function Home() {
 				}
 			});
 	}, []);
-
-	//console.log(UserProfile.name);
 
   	return (
     	<Container>
