@@ -27,7 +27,7 @@ createPost = async (req, res) => {
         .save()
         .then(() => {
             // Add the post to the user's posts
-            User.findByIdAndUpdate(req.body.authorID, { $push: { posts: post._id } })
+            User.findByIdAndUpdate(req.body.authorId, { $push: { posts: post._id } })
                 .catch(err => console.log(err));
             return res.status(201).json({
                 success: true,

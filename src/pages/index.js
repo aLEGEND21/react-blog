@@ -1,5 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Post from '../components/Post';
 
 function Home() {
 	let [posts, setPosts] = useState([]);
@@ -17,14 +19,13 @@ function Home() {
 
   	return (
     	<Container>
-			{posts.map(post => {
-				return (
-					<div key={post._id}>
-						<h1>{post.title}</h1>
-						<p>{post.summary}</p>
-					</div>
-				)
-			})}
+			<Row className="justify-content-center mt-5">
+				{posts.map(post => {
+					return (
+						<Post key={post._id} {...post} />
+					)
+				})}
+			</Row>
     	</Container>
   	);
 }

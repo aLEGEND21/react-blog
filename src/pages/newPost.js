@@ -51,7 +51,7 @@ function NewPost() {
                     title: title,
                     summary: summary,
                     content: content,
-                    //authorID: Session.get('userID'),
+                    authorId: session.id,
                 }),
             })
             .then(response => response.json())

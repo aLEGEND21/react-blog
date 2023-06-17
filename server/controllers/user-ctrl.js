@@ -77,7 +77,7 @@ getUser = async (req, res) => {
                 user.password = undefined;
                 return res.status(200).json({ 
                     success: true, 
-                    ...user,
+                    ...user._doc,
                 })
             }
         })

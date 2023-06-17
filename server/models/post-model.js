@@ -8,7 +8,7 @@ const Post = new Schema(
         title: { type: String, required: true },
         summary: { type: String, required: true },
         content: { type: String, required: true },
-        authorID: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
+        authorId: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
     },
     { timestamps: true },
 )
