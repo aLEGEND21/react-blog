@@ -5,6 +5,7 @@ const cors = require('cors');
 const db = require('./db');
 const userRouter = require('./routes/user-router');
 const postRouter = require('./routes/post-router');
+const authRouter = require('./routes/auth-router');
 
 // Create an express app
 const app = express();
@@ -25,6 +26,7 @@ app.get('/', (req, res) => {
 // Configure the api routes
 app.use('/api', userRouter);
 app.use('/api', postRouter);
+app.use('/api', authRouter);
 
 // Start the server
 app.listen(8080, () => {

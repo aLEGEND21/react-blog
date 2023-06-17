@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useReducer } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
@@ -33,20 +33,24 @@ function Login() {
         }
 
         // Check that the credentials are valid
-        fetch(`${process.env.REACT_APP_API_URL}/user/${username}`)
+        fetch(`${process.env.REACT_APP_API_URL}/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({username: username, password: password}),
+        })
             .then(response => response.json())
             .then(data => {
                 if (!data.success) {
-                    return setError("Incorrect username or password");
-                } else if (data.data.username !== username || data.data.password !== password) {
                     return setError("Incorrect username or password");
                 } else {
                     sessionDispatch({
                         type: 'login',
                         payload: {
                             loggedIn: true,
-                            username: data.data.username,
-                            id: data.data._id,
+                            username: data.username,
+                            id: data.id,
                         }
                     })
                     navigate('/');
