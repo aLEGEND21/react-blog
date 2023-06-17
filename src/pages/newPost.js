@@ -14,7 +14,8 @@ function NewPost() {
     let [title, setTitle] = useState('');
     let [summary, setSummary] = useState('');
     let [content, setContent] = useState('');
-    let [error, setError] = useState('');
+    let [thumbnail, setThumbnail] = useState();
+    let [error, setError] = useState();
     let session = useContext(SessionContext);
     let navigate = useNavigate();
 
@@ -39,33 +40,53 @@ function NewPost() {
             return setError("Summary cannot be longer than 200 characters");
         } else if (content === '') {
             return setError("Content cannot be empty");
+        } else if (thumbnail === undefined) {
+            return setError("Thumbnail must be a valid image file");
         }
 
-        // Add post to database
-        fetch(`${process.env.REACT_APP_API_URL}/post`, {
+        // Upload the thumbnail to the server
+        let formData = new FormData();
+        formData.append('File', thumbnail);
+        fetch(`${process.env.REACT_APP_API_URL}/media/upload`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    title: title,
-                    summary: summary,
-                    content: content,
-                    authorId: session.id,
-                }),
-            })
+            body: formData,
+        })
             .then(response => response.json())
             .then(data => {
                 if (!data.success) {
                     console.log(data);
-                    return setError("Post could not be created");
+                    return setError("Thumbnail could not be uploaded");
                 } else {
-                    navigate('/');
+                    let fileUrl = `${process.env.REACT_APP_API_URL}/media/${data.filename}`; // The URL of the file on the server
+
+                    // Add post to database
+                    fetch(`${process.env.REACT_APP_API_URL}/post`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                title: title,
+                                summary: summary,
+                                content: content,
+                                authorId: session.id,
+                                thumbnailUrl: fileUrl,
+                            }),
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (!data.success) {
+                                console.log(data);
+                                return setError("Post could not be created");
+                            } else {
+                                navigate('/');
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
                 }
-            })
-            .catch(error => {
-                console.log(error);
-            });
+            });        
     }
 
     let handleReset = (e) => {
@@ -75,10 +96,11 @@ function NewPost() {
         setTitle('');
         setSummary('');
         setContent('');
+        setThumbnail();
     }
 
     return (
-        <Container className='col-10 col-md-9 col-xl-8 mt-5'>
+        <Container className='col-10 col-md-9 col-xl-8 my-5'>
             {/* Error alert */}
             {
                 error ?
@@ -102,6 +124,10 @@ function NewPost() {
                     <Form.Group className="pt-3" controlId="postContent">
                         <Form.Label>Content</Form.Label>
                         <Form.Control as="textarea" rows={6} placeholder="Lorem ipsum dolor sit amet..." value={content} onChange={(e) => setContent(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group className='pt-3'>
+                        <Form.Label>Thumbnail Image</Form.Label>
+                        <Form.Control type="file" accept=".png,.jpg,.jpeg"onChange={(e) => setThumbnail(e.target.files[0])}/>
                     </Form.Group>
                     <Button variant="primary" type="submit" className='text-light mt-4'>
                         Post

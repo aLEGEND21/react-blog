@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
-import { Link } from 'react-router-dom';
 
 function Post(props) {
     let [authorUsername, setAuthorUsername] = useState('');
@@ -19,6 +18,7 @@ function Post(props) {
     return (
         <div className='col-10 col-md-6 col-lg-4 mb-4'>
             <Card className='h-100'>
+                <Card.Img variant='top' src={props.thumbnailUrl} />
                 <Card.Body>
                     <Card.Title>{props.title}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">By: {authorUsername}</Card.Subtitle>

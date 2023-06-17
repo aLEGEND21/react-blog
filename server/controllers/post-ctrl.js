@@ -5,6 +5,7 @@ const Post = require('../models/post-model')
 // Create a new post
 createPost = async (req, res) => {
     const body = req.body
+    console.log(body);
 
     // Check if the request body is empty
     if (!body) {
