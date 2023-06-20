@@ -17,19 +17,6 @@ function Post(props) {
             });
     }, []);
 
-    /*return (
-        <Link to={`/posts/view/${props._id}`} className='postContainer col-12 text-decoration-none text-reset mb-4 row align-items-center'>
-                <div className='col-6 ps-4 postTextContainer'>
-                    <p className='postAuthor'><BsFillPersonFill /> {authorUsername}</p>
-                    <p className='postTitle'>{props.title}</p>
-                    <p className='postDate'>{new Date(props.createdAt).toLocaleDateString()}</p>
-                </div>
-                <div className='col-6 px-0 ps-2'>
-                    <img src={props.thumbnailUrl} className='postImage mx-auto' />
-                </div>
-        </Link>
-    );*/
-
     return (
         <Link to={`/posts/view/${props._id}`} className='postContainer row text-decoration-none text-reset'>
             <div className='postSection col-6 col-lg-7'>
