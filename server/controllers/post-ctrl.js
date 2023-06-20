@@ -62,18 +62,20 @@ deletePost = async (req, res) => {
 
 // Get a post by ID
 getPostById = async (req, res) => {
-    await Post.findOne({ _id: req.params.id }, (err, post) => {
-        if (err) {
-            return res.status(400).json({ success: false, error: err })
-        }
-
-        if (!post) {
-            return res
-                .status(404)
-                .json({ success: false, error: `Post not found` })
-        }
-        return res.status(200).json({ success: true, data: post })
-    }).catch(err => console.log(err))
+    await Post.findOne({ _id: req.params.id })
+        .then((post) => {
+            if (!post) {
+                return res
+                    .status(404)
+                    .json({ success: false, message: 'Post not found' })
+            } else {
+                return res.status(200).json({ 
+                    success: true, 
+                    ...post._doc,
+                })
+            }
+        })
+        .catch(err => console.log(err))
 }
 
 
