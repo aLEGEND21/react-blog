@@ -9,7 +9,7 @@ import Login from './pages/login';
 import Register from './pages/register';
 import NewPost from './pages/newPost';
 import Logout from './pages/logout';
-import './App.css';
+import './css/App.css';
 
 function App() {
   let [session, sessionDispatch] = useReducer(sessionReducer, {
