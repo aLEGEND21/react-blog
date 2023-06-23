@@ -1,0 +1,16 @@
+@import './custom.scss';
+
+.tag-hash-icon {
+    font-size: large;
+    margin-left: -.25rem;
+    margin-right: .1rem;
+    margin-top: -.2rem;
+}
+
+.tag-remove-icon {
+    margin-top: -.15rem;
+}
+
+.tag-remove-icon:hover {
+    cursor: pointer;
+}

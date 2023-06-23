@@ -4,16 +4,40 @@ import Alert from 'react-bootstrap/Alert';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Tag from '../components/Tag';
 import { SessionContext } from '../Contexts';
 
 let alertStyle = {
     marginBottom: '0.5rem',
 };
 
+// The available tag types
+let tagTypes = [
+    'Art',
+    'Business',
+    'Culture',
+    'Design',
+    'Education',
+    'Entertainment',
+    'Fashion',
+    'Food',
+    'Gaming',
+    'Health',
+    'Lifestyle',
+    'Music',
+    'News',
+    'Politics',
+    'Science',
+    'Sports',
+    'Technology',
+    'Travel',
+];
+
 function NewPost() {
     let [title, setTitle] = useState('');
     let [summary, setSummary] = useState('');
     let [content, setContent] = useState('');
+    let [tags, setTags] = useState([]);
     let [thumbnail, setThumbnail] = useState();
     let [error, setError] = useState();
     let session = useContext(SessionContext);
@@ -25,6 +49,35 @@ function NewPost() {
             navigate('/login');
         }
     }, []);
+
+    // Disable the tag select if the user has already selected 2 tags
+    useEffect(() => {
+        let tagSelect = document.getElementById('tagSelect');
+        if (tagSelect === null) return;
+        if (tags.length === 2) {
+            tagSelect.disabled = true;
+            tagSelect.options[1].selected = true;
+        } else {
+            tagSelect.disabled = false;
+            tagSelect.options[0].selected = true;
+        }
+    }, [tags]);
+
+    let handleTagSelect = (e) => {
+        let tag = e.target.value;
+        if (!tags.includes(tag)) {
+            setTags([...tags, tag]);
+        } else {
+            e.target.options[0].selected = true; // Manually reset the placeholder since the useEffect won't trigger
+        }
+    }
+    
+    let handleTagRemove = (tag) => {
+        // Return a function that removes the tag from the tags array. This is required for the Tag component to work.
+        return () => {
+            setTags(tags.filter(t => t !== tag));
+        }
+    }
     
     let handleSubmit = (e) => {
         e.preventDefault();
@@ -40,6 +93,8 @@ function NewPost() {
             return setError("Summary cannot be longer than 200 characters");
         } else if (content === '') {
             return setError("Content cannot be empty");
+        } else if (tags.length === 0) {
+            return setError("At least one tag must be selected");
         } else if (thumbnail === undefined) {
             return setError("Thumbnail must be a valid image file");
         }
@@ -71,6 +126,7 @@ function NewPost() {
                                 content: content,
                                 authorId: session.id,
                                 thumbnailUrl: fileUrl,
+                                tags: tags,
                             }),
                         })
                         .then(response => response.json())
@@ -96,6 +152,7 @@ function NewPost() {
         setTitle('');
         setSummary('');
         setContent('');
+        setTags([]);
         setThumbnail();
     }
 
@@ -125,9 +182,24 @@ function NewPost() {
                         <Form.Label>Content</Form.Label>
                         <Form.Control as="textarea" rows={6} placeholder="Lorem ipsum dolor sit amet..." value={content} onChange={(e) => setContent(e.target.value)}/>
                     </Form.Group>
+                    <Form.Group className="pt-3" controlId="postTags">
+                        <Form.Label>Tags</Form.Label>
+                        <Form.Select id="tagSelect" onChange={handleTagSelect}>
+                            <option value={null} hidden >Select up to 2 tags</option>
+                            <option value={null} hidden disabled>Maximum number of tags selected</option>
+                            {tagTypes.map((tagType, index) => {
+                                return <option key={index} value={tagType}>{tagType}</option>
+                            })}
+                        </Form.Select>
+                        <div className='pt-2 '>
+                            {tags.map((tagType, index) => {
+                                return <Tag key={index} value={tagType} handleRemove={handleTagRemove}/>
+                            })}
+                        </div>
+                    </Form.Group>
                     <Form.Group className='pt-3'>
                         <Form.Label>Thumbnail Image</Form.Label>
-                        <Form.Control type="file" accept=".png,.jpg,.jpeg"onChange={(e) => setThumbnail(e.target.files[0])}/>
+                        <Form.Control type="file" accept=".png,.jpg,.jpeg" onChange={(e) => setThumbnail(e.target.files[0])}/>
                     </Form.Group>
                     <Button variant="primary" type="submit" className='text-light mt-4'>
                         Post

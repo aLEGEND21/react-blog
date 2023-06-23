@@ -1,3 +1,5 @@
+@import './custom.scss';
+
 .postContainer {
     background-color: rgba(255, 255, 255, 0.3) !important;
     border-radius: 10px;
@@ -27,6 +29,20 @@
 .postSummary {
     font-size: 14px;
     margin-top: -.5rem;
+    max-height: 4rem;
+    /* Handle multiline text-overflow */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; // max num lines to show
+    -webkit-box-orient: vertical;
+}
+
+.postTag {
+    border-radius: 5px;
+    background-color: $primary;
+    color: whitesmoke;
+    font-weight: lighter;
 }
 
 .postImage {

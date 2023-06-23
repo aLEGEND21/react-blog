@@ -9,7 +9,8 @@ const Post = new Schema(
         summary: { type: String, required: true },
         content: { type: String, required: true },
         authorId: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
-        thumbnailUrl: { type: String, required: true }
+        thumbnailUrl: { type: String, required: true },
+        tags: { type: [String], required: true },
     },
     { timestamps: true },
 )
