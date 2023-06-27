@@ -1,5 +1,16 @@
 @import './custom.scss';
 
+@keyframes fadeInRight {
+    0% {
+       opacity: 0;
+       transform: translateX(20px);
+    }
+    100% {
+       opacity: 1;
+       transform: translateX(0);
+    }
+} 
+
 .postContainer {
     background-color: rgba(255, 255, 255, 0.3) !important;
     border-radius: 10px;
@@ -49,4 +60,15 @@
     border-radius: 5px;
     width: 90%;
     height: calc(100% - 2rem);
+}
+
+// Don't show admin controls by default
+.postAdminControls {
+    visibility: hidden;
+}
+
+// Show admin controls on post hover
+.postContainer:hover .postAdminControls {
+    animation: fadeInRight 0.25s;
+    visibility: visible;
 }

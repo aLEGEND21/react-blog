@@ -19,6 +19,7 @@ function NavBar() {
                     session.loggedIn ? 
                     <>
                     <Nav.Link href="/posts/new">New Post</Nav.Link>
+                    <Nav.Link href={`/profile/${session.id}`}>Profile</Nav.Link>
                     <Nav.Link href="/logout">Logout</Nav.Link>
                     </>
                     :
