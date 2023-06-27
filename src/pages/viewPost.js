@@ -14,9 +14,8 @@ let postContentStyle = {
 function ViewPost() {
     const { id } = useParams();
     let [post, setPost] = useState({});
-    let [author, setAuthor] = useState('');
 
-    // Load the post and author data from the API
+    // Load the post data from the API
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/post/${id}`)
             .then((results) => {
@@ -24,13 +23,6 @@ function ViewPost() {
             })
             .then((data) => {
                 setPost(data);
-                fetch(`${process.env.REACT_APP_API_URL}/user/${data.authorId}`)
-                    .then((results) => {
-                        return results.json();
-                    })
-                    .then((data) => {
-                        setAuthor(data.username);
-                    });
             });
     }, [id]);
 
@@ -44,7 +36,7 @@ function ViewPost() {
                 <hr className='mt-4'/>
                 <ul className='list-inline mt-3 text-center'>
                     <li className='list-inline-item'>
-                        <BsPerson /> {author}
+                        <BsPerson /> {post.author?.username}
                     </li>
                     <li className='list-inline-item ms-4'>
                         <BsCalendar /> {new Date(post.createdAt).toLocaleDateString()}

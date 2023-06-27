@@ -1,29 +1,15 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BsFillCalendarFill, BsFillPersonFill } from 'react-icons/bs';
 import { PiHashLight } from 'react-icons/pi';
 import '../scss/Post.scss'
 
 function Post(props) {
-    let [authorUsername, setAuthorUsername] = useState('');
-
-    // Fetch the author's name from the API
-    useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/user/${props.authorId}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    setAuthorUsername(data.username);
-                }
-            });
-    }, []);
-
     return (
         <Link to={`/posts/view/${props._id}`} className='postContainer row text-decoration-none text-reset'>
             <div className='postSection col-6 col-lg-7 position-relative'>
                 <ul className='postMeta list-inline ms-3'>
                     <li className='postAuthor list-inline-item'>
-                        <BsFillPersonFill /> {authorUsername}
+                        <BsFillPersonFill /> {props.author.username}
                     </li>
                     <li className='postDate list-inline-item ps-1'>
                         <BsFillCalendarFill /> {new Date(props.createdAt).toLocaleDateString()}

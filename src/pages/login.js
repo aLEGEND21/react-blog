@@ -72,7 +72,7 @@ function Login() {
                 <></>
             }
 
-            <Container className='bg-light border-none rounded px-5 pt-5 pb-4'>
+            <Container className='bg-white border-none rounded px-5 pt-5 pb-4'>
 
                 <h1 className='text-center'>Login</h1>
         
@@ -88,7 +88,7 @@ function Login() {
                     </Form.Group>
         
                     <div className='d-flex justify-content-center pt-1'>
-                        <Button variant='primary' type='submit' className='text-light'>Log In</Button>
+                        <Button variant='primary' type='submit' className='text-white'>Log In</Button>
                     </div>
         
                     <div className='d-flex justify-content-center pt-4'>

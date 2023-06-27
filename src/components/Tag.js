@@ -3,6 +3,12 @@ import { PiHashLight } from 'react-icons/pi';
 import '../scss/Tag.scss';
 
 function Tag(props) {
+    // Set the default variant to primary
+    let variant = props.variant;
+    if (!variant) {
+        variant = 'primary';
+    }
+
     let removeBtn;
     if (props.handleRemove) {
         removeBtn = (
@@ -11,7 +17,7 @@ function Tag(props) {
     }
 
     return (
-        <div className='tag d-inline-block rounded bg-primary border border-primary text-white me-2 px-2 py-1'>
+        <div className={`tag d-inline-block rounded bg-${variant} border border-${variant} text-${variant == 'primary' ? 'white' : 'grey'} me-2 px-2 py-1`}>
             <PiHashLight className='tag-hash-icon'/>
             {props.value}
             {removeBtn}

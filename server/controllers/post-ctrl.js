@@ -4,8 +4,7 @@ const Post = require('../models/post-model')
 
 // Create a new post
 createPost = async (req, res) => {
-    const body = req.body
-    console.log(body);
+    const body = req.body;
 
     // Check if the request body is empty
     if (!body) {
@@ -63,6 +62,7 @@ deletePost = async (req, res) => {
 // Get a post by ID
 getPostById = async (req, res) => {
     await Post.findOne({ _id: req.params.id })
+        .populate('author')
         .then((post) => {
             if (!post) {
                 return res
@@ -75,13 +75,14 @@ getPostById = async (req, res) => {
                 })
             }
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
 }
 
 
 // Get all posts
 getPosts = async (req, res) => {
     await Post.find({})
+        .populate('author')
         .then((posts) => {
             return res.status(200).json({ success: true, data: posts })
         })

@@ -8,7 +8,7 @@ const Post = new Schema(
         title: { type: String, required: true },
         summary: { type: String, required: true },
         content: { type: String, required: true },
-        authorId: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
+        author: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
         thumbnailUrl: { type: String, required: true },
         tags: { type: [String], required: true },
     },

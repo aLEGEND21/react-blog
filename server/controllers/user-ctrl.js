@@ -68,6 +68,7 @@ deleteUser = async (req, res) => {
 // Get a user by id
 getUser = async (req, res) => {
     await User.findOne({ _id: req.params.id })
+        .populate('posts')
         .then((user) => {
             if (!user) {
                 return res
@@ -88,6 +89,7 @@ getUser = async (req, res) => {
 // Get all users
 getUsers = async (req, res) => {
     await User.find({})
+        .populate('posts')
         .then((users) => {
             if (!users.length) {
                 return res

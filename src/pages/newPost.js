@@ -6,32 +6,11 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Tag from '../components/Tag';
 import { SessionContext } from '../Contexts';
+import { tagTypes } from '../constants';
 
 let alertStyle = {
     marginBottom: '0.5rem',
 };
-
-// The available tag types
-let tagTypes = [
-    'Art',
-    'Business',
-    'Culture',
-    'Design',
-    'Education',
-    'Entertainment',
-    'Fashion',
-    'Food',
-    'Gaming',
-    'Health',
-    'Lifestyle',
-    'Music',
-    'News',
-    'Politics',
-    'Science',
-    'Sports',
-    'Technology',
-    'Travel',
-];
 
 function NewPost() {
     let [title, setTitle] = useState('');
@@ -124,7 +103,7 @@ function NewPost() {
                                 title: title,
                                 summary: summary,
                                 content: content,
-                                authorId: session.id,
+                                author: session.id,
                                 thumbnailUrl: fileUrl,
                                 tags: tags,
                             }),
@@ -201,7 +180,7 @@ function NewPost() {
                         <Form.Label>Thumbnail Image</Form.Label>
                         <Form.Control type="file" accept=".png,.jpg,.jpeg" onChange={(e) => setThumbnail(e.target.files[0])}/>
                     </Form.Group>
-                    <Button variant="primary" type="submit" className='text-light mt-4'>
+                    <Button variant="primary" type="submit" className='text-white mt-4'>
                         Post
                     </Button>
                     <Button variant="outline-danger" type="reset" className='mt-4 ms-2'>

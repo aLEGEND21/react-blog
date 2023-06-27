@@ -79,7 +79,7 @@ function Register() {
                 <></>
             }
 
-            <Container className='bg-light border-none rounded px-5 pt-5 pb-4'>
+            <Container className='bg-white border-none rounded px-5 pt-5 pb-4'>
 
                 <h1 className='text-center'>Register</h1>
         
@@ -100,7 +100,7 @@ function Register() {
                     </Form.Group>
         
                     <div className='d-flex justify-content-center pt-1'>
-                        <Button variant='primary' type='submit' className='text-light'>Register</Button>
+                        <Button variant='primary' type='submit' className='text-white'>Register</Button>
                     </div>
         
                     <div className='d-flex justify-content-center pt-4'>

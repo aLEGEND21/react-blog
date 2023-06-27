@@ -1,0 +1,22 @@
+@import './custom.scss';
+
+#search-container {
+    overflow: visible; // Required to make the search form stick to the top of the page when scrolling
+}
+
+#search-form {
+    top: 2rem;
+}
+
+#search-type-select {
+    max-width: max-content;
+}
+
+#search-decoration {
+    pointer-events: none;
+    user-select: none;
+}
+
+#tag-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23757575' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e"); // Required to make the caret icon dark grey in the select
+}
