@@ -1,0 +1,13 @@
+@import './custom.scss';
+
+body {
+    background-color: $primary !important;
+}
+
+/* Remove outline from navbar toggle button */
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}

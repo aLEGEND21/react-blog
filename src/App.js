@@ -10,7 +10,7 @@ import Register from './pages/register';
 import NewPost from './pages/newPost';
 import Logout from './pages/logout';
 import ViewPost from './pages/viewPost';
-import './css/App.css';
+import './scss/App.scss';
 
 function App() {
   let [session, sessionDispatch] = useReducer(sessionReducer, {
