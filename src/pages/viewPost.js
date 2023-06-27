@@ -28,7 +28,7 @@ function ViewPost() {
 
     return (
         <div className='mt-5'>
-            <div className='col-10 col-md-8 col-lg-6 offset-1 offset-md-2 offset-lg-3'>
+            <div className='col-10 col-md-8 col-lg-6 offset-1 offset-md-2 offset-lg-3 text-grey'>
                 <p className='display-6 text-center'>{post.title}</p>
                 <img src={post.thumbnailUrl} className='rounded img-fluid d-block mx-auto mt-5' style={postImageStyle}/>
                 <p className='lead text-center mt-5'>{post.summary}</p>
