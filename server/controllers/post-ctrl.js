@@ -49,7 +49,48 @@ createPost = async (req, res) => {
 
 // Update a post
 updatePost = async (req, res) => {
-    return res.status(501).json({ message: 'Not implemented' })
+    const body = req.body
+
+    // Check if the request body is empty
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            message: 'You must provide a post to update',
+        })
+    }
+
+    // Check if the post exists
+    Post.findOne({ _id: req.params.id })
+        .then(post => {
+            if (!post) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Post not found',
+                })
+            }
+
+            // Update the post
+            post.title = body.title
+            post.summary = body.summary
+            post.content = body.content
+            post.tags = body.tags
+            post
+                .save()
+                .then(() => {
+                    return res.status(200).json({
+                        success: true,
+                        id: post._id,
+                        message: 'Post updated',
+                    })
+                })
+                .catch(error => {
+                    console.log(error);
+                    return res.status(404).json({
+                        error,
+                        message: 'Post not updated',
+                    })
+                })
+        })
 }
 
 

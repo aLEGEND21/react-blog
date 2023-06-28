@@ -11,6 +11,7 @@ import NewPost from './pages/newPost';
 import Logout from './pages/logout';
 import ViewPost from './pages/viewPost';
 import Profile from './pages/profile';
+import EditPost from './pages/editPost';
 import './scss/App.scss';
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
               <Route path="/logout" element={<Logout />} />
               <Route path="/posts/view/:id" element={<ViewPost />} />
               <Route path="/profile/:id" element={<Profile />} />
+              <Route path="/posts/edit/:id" element={<EditPost />} />
             </Routes>
           </SessionDispatchContext.Provider>
         </SessionContext.Provider>

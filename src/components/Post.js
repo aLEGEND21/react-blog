@@ -43,9 +43,11 @@ function Post(props) {
                 // Display admin controls to edit and delete posts
                 props.showAdminControls ?
                 <div className='postAdminControls position-absolute me-3 mt-3 p-1 rounded'>
-                    <Button variant='primary' size='sm' className='adminControl ms-auto d-block mb-2 text-white'>
-                        <BiEdit />
-                    </Button>
+                    <Link to={`/posts/edit/${props._id}`} className='text-reset text-decoration-none'>
+                        <Button variant='primary' size='sm' className='adminControl ms-auto d-block mb-2 text-white'>
+                            <BiEdit />
+                        </Button>
+                    </Link>
                     <Button variant='danger' size='sm'  className='adminControl ms-auto d-block text-white'>
                         <AiOutlineDelete />
                     </Button>
