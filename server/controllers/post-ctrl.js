@@ -96,7 +96,20 @@ updatePost = async (req, res) => {
 
 // Delete a post
 deletePost = async (req, res) => {
-    return res.status(501).json({ message: 'Not implemented' })
+    await Post.findOneAndDelete({ _id: req.params.id })
+        .then(post => {
+            if (!post) {
+                return res.status(404).json({ 
+                    success: false, 
+                    error: `Post not found` 
+                })
+            } else {
+                return res.status(200).json({
+                    success: true,
+                    ...post._doc,
+                })
+            }
+        });
 }
 
 

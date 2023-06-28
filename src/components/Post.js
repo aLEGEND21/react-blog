@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { BiEdit } from 'react-icons/bi';
 import { BsFillCalendarFill, BsFillPersonFill } from 'react-icons/bs';
@@ -7,7 +9,32 @@ import { PiHashLight } from 'react-icons/pi';
 import '../scss/Post.scss'
 
 function Post(props) {
+    let [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    // Handle the delete button being clicked. This prevents the navigation to the post view page and opens the modal instead.
+    let handleModalOpen = (e) => {
+        e.preventDefault();
+        setShowDeleteModal(true);
+    }
+
+    // Handle the delete confirmation being clicked
+    let handleDelete = () => {
+        fetch(`${process.env.REACT_APP_API_URL}/post/${props._id}`, {
+            method: 'DELETE',
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.reload();
+                } else {
+                    alert('An error occurred while deleting the post.')
+                    console.log(data);
+                }
+            });
+    }
+
     return (
+        <>
         <Link to={`/posts/view/${props._id}`} className='postContainer row text-decoration-none text-reset'>
             <div className='postSection col-6 col-lg-7 position-relative'>
                 <ul className='postMeta list-inline ms-3'>
@@ -37,6 +64,7 @@ function Post(props) {
                     })}
                 </div>
             </div>
+
             <div className='postSection col-6 col-lg-5 d-flex justify-content-end'>
                 <img className='postImage my-auto me-3' src={props.thumbnailUrl} />
                 {
@@ -48,7 +76,7 @@ function Post(props) {
                             <BiEdit />
                         </Button>
                     </Link>
-                    <Button variant='danger' size='sm'  className='adminControl ms-auto d-block text-white'>
+                    <Button variant='danger' size='sm'  className='adminControl ms-auto d-block text-white' onClick={handleModalOpen}>
                         <AiOutlineDelete />
                     </Button>
                 </div>
@@ -56,6 +84,24 @@ function Post(props) {
                 }
             </div>
         </Link>
+
+        <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+            <Modal.Header closeButton>
+                <Modal.Title>Delete Post</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                Are you sure you want to delete this post?
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant='outline-secondary' onClick={() => setShowDeleteModal(false)}>
+                    Cancel
+                </Button>
+                <Button variant='danger' onClick={handleDelete}>
+                    Delete
+                </Button>
+            </Modal.Footer>
+        </Modal>
+        </>
     );
 }
 
