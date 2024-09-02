@@ -25,12 +25,19 @@ git clone https://github.com/aLEGEND21/react-blog.git
 ```bash
 cd react-blog
 npm install
+cd server
+npm install
 ```
 
-3. Start the server
+3. Start the backend
 
 ```bash
-npm start
+npm run serve
 ```
 
-4. Open the website in your browser. The default URL is `http://localhost:3000`.
+4. Start the frontend. The application will automatically open in your default browser.
+
+```bash
+cd ..
+npm start
+```
